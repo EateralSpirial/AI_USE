@@ -17,3 +17,7 @@ Use the least expensive model that can **reliably complete and verify** the task
 * **ultra/max**: Reserve for Sol to solve the most difficult tasks with exceptional reasoning demands.
 
 Start with the lowest suitable model and reasoning effort. Escalate when the agent cannot form a confident plan, evidence conflicts, an attempt fails without a clear cause, or correctness remains difficult to verify.
+
+## User-Level Context Evolution
+
+After resolving a difficult reusable problem, receiving a material user correction, or receiving durable workflow guidance, use `evolve-user-agent-context` to evaluate whether the lesson belongs in the user's global agent context. Apply a strict threshold, update the narrowest canonical local owner, and ask before contributing user-independent experience to AI_USE.
