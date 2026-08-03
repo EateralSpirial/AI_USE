@@ -1,49 +1,52 @@
 # AI_USE
 
-AI_USE is the canonical public repository for synchronizing a user's global agent context across devices. The initial implementation targets Codex.
+AI_USE is a user-level agent context kernel. It supplies compact, portable context material and the skills that let a user's local agents keep their global working context current and selectively learn from experience.
 
-## Repository contract
+## System Model
 
-| Repository object | Local Codex destination | Purpose |
-| --- | --- | --- |
-| `AGENTS.md` | `$CODEX_HOME/AGENTS.md` or `~/.codex/AGENTS.md` | Global instructions shared across projects |
-| `skills/*` | `$CODEX_HOME/skills/*` | Reusable global workflows |
-| `experiences/*` | Repository only | Sanitized, durable, cross-project operating experience |
+The repository and the local environment have distinct ownership:
 
-The `main` branch is the canonical distribution source.
+- **AI_USE** carries portable principles, example global instructions, reusable skills, and broadly useful cross-project experience.
+- **The user's local agent context** carries the personalized working state: user-specific preferences, local environment knowledge, and accepted experience accumulated during use.
+- **Each project** carries its own architecture, contracts, workflows, and project-specific lessons.
 
-## Included skills
+This separation keeps the public source reusable while allowing each local context system to evolve around its user.
 
-### `update-global-agent-context`
+## Canonical Objects
 
-Installs, updates, repairs, or verifies the current device's Codex global context from this repository. It validates the source, preserves unmanaged local skills, creates backups, and reports the installed commit.
+| Object | Role |
+| --- | --- |
+| [`PRINCIPLES.md`](PRINCIPLES.md) | Canonical principles governing user-level context design and evolution |
+| [`AGENTS.md`](AGENTS.md) | Demonstrative global instructions and a compact route into context evolution |
+| [`sync-user-agent-context`](skills/sync-user-agent-context/SKILL.md) | Reconcile AI_USE material into the current user's local global agent context |
+| [`evolve-user-agent-context`](skills/evolve-user-agent-context/SKILL.md) | Evaluate execution experience and evolve the user's local context |
 
-### `publish-global-agent-experience`
+The repository stays compact. New files and skills appear when a durable meaning requires a distinct owner.
 
-Converts execution experience into a reusable global entry and submits it to this repository. It may run only after the user explicitly authorizes publication. Its default publication path is a branch and pull request; direct writes to `main` require explicit instruction.
+## Operating Loop
 
-## Initial installation
+1. Install the two skills into the user's global agent skill library.
+2. Use `sync-user-agent-context` to onboard or refresh a device from AI_USE.
+3. Let agents work normally with project-local context and direct evidence.
+4. Invoke `evolve-user-agent-context` after a strong experience trigger.
+5. Integrate accepted lessons into the narrowest canonical local owner.
+6. When a lesson is broadly reusable across users and projects, ask the user whether to contribute it back to AI_USE.
 
-Clone the repository and run the bundled synchronizer:
+## Installation
 
-```bash
-git clone https://github.com/EateralSpirial/AI_USE.git
-cd AI_USE
-python skills/update-global-agent-context/scripts/sync.py --source .
+Install each skill with Codex's skill installer:
+
+```text
+$skill-installer install https://github.com/EateralSpirial/AI_USE/tree/main/skills/sync-user-agent-context
+$skill-installer install https://github.com/EateralSpirial/AI_USE/tree/main/skills/evolve-user-agent-context
 ```
 
-On Windows, `py` can replace `python`.
+Then invoke:
 
-## Later updates
-
-A local agent can invoke `update-global-agent-context`, or the installed script can fetch `main` directly:
-
-```bash
-python ~/.codex/skills/update-global-agent-context/scripts/sync.py --remote
+```text
+Use $sync-user-agent-context to initialize or refresh my global agent context from AI_USE.
 ```
 
-Set `CODEX_HOME` when Codex uses a non-default global directory.
+## Conceptual Lineage
 
-## Publication policy
-
-Global experience is opt-in. Routine sessions, project-local implementation details, credentials, private paths, personal data, and proprietary material stay outside this repository. Every published entry must state its trigger conditions, reusable procedure, verification method, and limits.
+AI_USE adapts the onboarding-first context principles developed in [`agent-context-kernel`](https://github.com/EateralSpirial/agent-context-kernel) to the user level. Its selective experience loop develops the earlier self-evolution direction explored in [`central-skill-seed`](https://github.com/EateralSpirial/central-skill-seed).
